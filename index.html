@@ -4,59 +4,276 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fraccionador Siu</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; margin: 0; background: #f5f8ff; color: #333; padding: 20px; }
-    main.card { max-width: 480px; margin: auto; background: #fff; padding: 24px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-    h1, h2 { text-align: center; }
-    .input-group { display: flex; gap: 10px; }
-    input, select, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 12px; border: 1px solid #ccc; }
-    button { background-color: #0F2C52; color: white; cursor: pointer; }
-    button:hover { opacity: 0.9; }
-    .resultado { margin-top: 20px; padding: 15px; background: #e9f0fc; border-left: 5px solid #4a90e2; }
-    .theme-toggle { text-align: center; margin-bottom: 10px; }
+    :root {
+      --color-primario: #0F2C52;
+      --color-secundario: #ffffff;
+      --color-fondo: #f5f8ff;
+      --color-resaltado: #4a90e2;
+      --color-texto: #333;
+    }
+
+    [data-theme="oscuro"] {
+      --color-primario: #357ac6;
+      --color-secundario: #1e1e1e;
+      --color-fondo: #2c2c2c;
+      --color-resaltado: #4a90e2;
+      --color-texto: #eee;
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    main.card {
+      background: var(--color-secundario);
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 480px;
+      width: 100%;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: var(--color-resaltado);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: var(--color-primario);
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      background: var(--color-fondo);
+      padding: 15px;
+      border-radius: 12px;
+      border-left: 5px solid var(--color-resaltado);
+    }
+
+    .copy-btn {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    .copy-btn:hover {
+      background-color: #e6c200;
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+    }
+
+    .whatsapp-btn:hover {
+      background-color: #1DA851;
+    }
+
+    .nuevo-btn {
+      background-color: #4a90e2;
+    }
+
+    .nuevo-btn:hover {
+      background-color: #357ac6;
+    }
+
+    .theme-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .theme-toggle label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .input-group {
+        flex-direction: column;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
   </style>
 </head>
 <body data-theme="claro">
+
   <main class="card">
     <div class="theme-toggle">
-      <label><input type="checkbox" id="toggleTema" /> Modo oscuro</label>
+      <label>
+        <input type="checkbox" id="toggleTema" />
+        Modo oscuro
+      </label>
     </div>
+
     <h1>Víctor Siu</h1>
     <h2>Fraccionador de años</h2>
+
     <label for="años">Años y meses:</label>
     <div class="input-group">
       <input type="number" id="años" placeholder="Años" min="0" />
       <input type="number" id="meses" placeholder="Meses" min="0" max="11" />
     </div>
+
     <label for="operacion">¿Sumar o restar la fracción?</label>
     <select id="operacion">
       <option value="restar" selected>Restar</option>
       <option value="sumar">Sumar</option>
     </select>
+
     <label for="fraccion">Fracción:</label>
     <select id="fraccion">
-      <option value="1/2">1/2</option>
+      <option value="1/2" selected>1/2</option>
       <option value="1/3">1/3</option>
       <option value="1/4">1/4</option>
       <option value="1/5">1/5</option>
       <option value="1/6">1/6</option>
       <option value="1/7">1/7</option>
     </select>
+
     <button id="btnCalcular">Calcular</button>
-    <div class="resultado" id="resultado"></div>
-    <button id="btnCopiar">Copiar resultado</button>
-    <button id="btnWhatsapp">Compartir por WhatsApp</button>
-    <button id="btnNuevo">Nuevo cálculo</button>
+
+    <div class="resultado" id="resultado" role="status" aria-live="polite"></div>
+
+    <button class="copy-btn" id="btnCopiar">Copiar resultado</button>
+    <button class="whatsapp-btn" id="btnWhatsapp">Compartir por WhatsApp</button>
+    <button class="nuevo-btn" id="btnNuevo">Nuevo cálculo</button>
   </main>
-  <script src="app.js"></script>
+
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js');
-      });
+    document.getElementById("btnCalcular").addEventListener("click", calcular);
+    document.getElementById("btnCopiar").addEventListener("click", copiarResultado);
+    document.getElementById("btnWhatsapp").addEventListener("click", compartirWhatsApp);
+    document.getElementById("btnNuevo").addEventListener("click", limpiarFormulario);
+    document.getElementById("toggleTema").addEventListener("change", function() {
+      document.body.setAttribute("data-theme", this.checked ? "oscuro" : "claro");
+    });
+
+    function calcular() {
+      const años = parseFloat(document.getElementById("años").value) || 0;
+      const meses = parseFloat(document.getElementById("meses").value) || 0;
+      const fraccionStr = document.getElementById("fraccion").value;
+      const operacion = document.getElementById("operacion").value;
+
+      const totalAnios = años + (meses / 12);
+      const [num, den] = fraccionStr.split("/").map(Number);
+      const fraccion = num / den;
+
+      let resultado = operacion === "restar"
+        ? totalAnios * (1 - fraccion)
+        : totalAnios * (1 + fraccion);
+
+      const totalDias = resultado * 365.25;
+      let añosEnteros = Math.floor(totalDias / 365.25);
+      let diasRestantes = totalDias - añosEnteros * 365.25;
+      let mesesCalc = Math.floor(diasRestantes / 30.44);
+      let dias = Math.round(diasRestantes - mesesCalc * 30.44);
+
+      if (dias >= 30) {
+        dias = 0;
+        mesesCalc += 1;
+      }
+
+      if (mesesCalc >= 12) {
+        mesesCalc -= 12;
+        añosEnteros += 1;
+      }
+
+      document.getElementById("resultado").innerHTML =
+        `<strong>Resultado:</strong><br><b>${añosEnteros} años, ${mesesCalc} meses, ${dias} días</b>`;
+    }
+
+    function copiarResultado() {
+      const texto = document.getElementById("resultado").innerText.trim();
+      if (!texto) return alert("No hay resultado para copiar.");
+
+      navigator.clipboard?.writeText(texto).then(() =>
+        alert("Resultado copiado al portapapeles.")
+      ).catch(() => fallbackCopiar(texto));
+    }
+
+    function fallbackCopiar(texto) {
+      const temp = document.createElement("textarea");
+      temp.value = texto;
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand("copy");
+        alert("Resultado copiado (método alternativo).");
+      } catch {
+        alert("No se pudo copiar. Hazlo manualmente.");
+      }
+      document.body.removeChild(temp);
+    }
+
+    function compartirWhatsApp() {
+      const texto = document.getElementById("resultado").innerText.trim();
+      if (!texto) return alert("No hay resultado para compartir.");
+      const mensaje = encodeURIComponent("🧮 Resultado del Fraccionador de años, cortesía de Víctor Siu:\n\n" + texto);
+      window.open(`https://wa.me/?text=${mensaje}`, '_blank');
+    }
+
+    function limpiarFormulario() {
+      document.getElementById("años").value = "";
+      document.getElementById("meses").value = "";
+      document.getElementById("resultado").innerHTML = "";
     }
   </script>
+
 </body>
 </html>
